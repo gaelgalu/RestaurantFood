@@ -15,7 +15,9 @@ void agregarNodo(ListaEnlazadaLinea* platos, NodoLinea* plato){
 void addJump(ListaEnlazadaLinea* listaPlatos){
 	char* token;
 	token = strtok(listaPlatos->ultimo->ingredientes[listaPlatos->ultimo->cantidadIngredientes-1], "\n");
-	if (token) strcat(listaPlatos->ultimo->ingredientes[listaPlatos->ultimo->cantidadIngredientes-1], "\n");
+	
+	if (token) 
+		strcat(listaPlatos->ultimo->ingredientes[listaPlatos->ultimo->cantidadIngredientes-1], "\n");
 }
 
 void agregarLinea(ListaEnlazadaLinea* lineas, char* linea){
@@ -39,7 +41,8 @@ void agregarLinea(ListaEnlazadaLinea* lineas, char* linea){
 
 	nodo->ingredientes = (char**)calloc(nodo->cantidadIngredientes, sizeof(char*));
 
-	for (int i=0; i<cantidadIngredientes; i++) nodo->ingredientes[i] = (char*)calloc(64, sizeof(char));
+	for (int i=0; i<cantidadIngredientes; i++)
+		nodo->ingredientes[i] = (char*)calloc(64, sizeof(char));
 
 	for (int i=0; i<cantidadIngredientes; i++){
 		token = strtok(NULL, "-");
@@ -83,14 +86,13 @@ void imprimirPlatos(ListaEnlazadaLinea* listaPlatos){
 		printf("Calorías: %d\n", aux->calorias);
 		printf("Ingredientes (%d): ", aux->cantidadIngredientes);
 
-		for (int i=0; i<aux->cantidadIngredientes; i++) printf(" %s ", aux->ingredientes[i]);
+		for (int i=0; i<aux->cantidadIngredientes; i++) 
+			printf(" %s ", aux->ingredientes[i]);
 
 		printf("\n");
 
 		aux = aux->siguiente;
 	}
-
-	// printf("\n");
 }
 
 void agregarPlato(ListaEnlazadaLinea* listaPlatos){
@@ -123,6 +125,25 @@ void agregarPlato(ListaEnlazadaLinea* listaPlatos){
 	}
 
 	agregarNodo(listaPlatos, nuevoPlato);
+}
+
+NodoLinea* buscarPlato(ListaEnlazadaLinea* listaPlatos){
+	NodoLinea* aux;
+	char* nombreBuscado;
+	nombreBuscado = (char*)calloc(64, sizeof(char));
+
+	printf("Ingrese el nombre exacto del plato a buscar: ");
+	scanf("%[^\n]%*c", nombreBuscado);
+
+	aux = listaPlatos->primero;
+
+	while(aux){
+		if (strcmp(aux->comida, nombreBuscado) == 0)
+			return aux;
+		aux = aux->siguiente;
+	}
+
+	return NULL;
 }
 
 void ejecutar(){
