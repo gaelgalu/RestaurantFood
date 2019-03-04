@@ -111,7 +111,7 @@ void imprimirPlatosOrden(ListaEnlazadaLinea* listaPlatos){
 			strcat(aux->ingredientes[aux->cantidadIngredientes-1], "\n");
 
 		printf("Plato de comida: %s\n", aux->comida);
-		printf("Calorías: %d\n", aux->calorias);
+		printf("Calorias: %d\n", aux->calorias);
 		printf("Ingredientes (%d): ", aux->cantidadIngredientes);
 
 		for (i=0; i<aux->cantidadIngredientes; i++) 
@@ -135,7 +135,7 @@ void imprimirPlatosAlReves(ListaEnlazadaLinea* listaPlatos){
 			strcat(aux->ingredientes[aux->cantidadIngredientes-1], "\n");
 
 		printf("Plato de comida: %s\n", aux->comida);
-		printf("Calorías: %d\n", aux->calorias);
+		printf("Calorias: %d\n", aux->calorias);
 		printf("Ingredientes (%d): ", aux->cantidadIngredientes);
 
 		for (i=0; i<aux->cantidadIngredientes; i++) 
@@ -160,7 +160,7 @@ void agregarPlato(ListaEnlazadaLinea* listaPlatos){
 	scanf("%[^\n]%*c", nombrePlato);
 	strcpy(nuevoPlato->comida, nombrePlato);
 
-	printf("Cantidad de calorías: ");
+	printf("Cantidad de calorias: ");
 	scanf("%d", &calorias);
 	nuevoPlato->calorias = calorias;
 
@@ -172,7 +172,7 @@ void agregarPlato(ListaEnlazadaLinea* listaPlatos){
 	nuevoPlato->ingredientes = (char**)calloc(cantidadIngredientes, sizeof(char*));
 	for (i=0; i<cantidadIngredientes; i++) {
 		nuevoPlato->ingredientes[i] = (char*)calloc(64, sizeof(char));
-		printf("Ingrese ingrediente número %d: ", i+1);
+		printf("Ingrese ingrediente numero %d: ", i+1);
 		scanf("%[^\n]%*c", strcat(nuevoPlato->ingredientes[i], "\n"));
 	}
 
@@ -224,7 +224,7 @@ void editarPlato(ListaEnlazadaLinea* listaPlatos, char* nombreBuscado){
 		printf("Ingrese un nombre de plato (actual: %s): ", platoEditar->comida);
 		scanf("%[^\n]%*c", platoEditar->comida);
 
-		printf("Ingrese cantidad de calorías (actual: %d): ", platoEditar->calorias);
+		printf("Ingrese cantidad de calorias (actual: %d): ", platoEditar->calorias);
 		scanf("%d", &platoEditar->calorias);
 
 		printf("Ingrese cantidad de ingredientes (actual: %d): ", platoEditar->cantidadIngredientes);
@@ -232,7 +232,7 @@ void editarPlato(ListaEnlazadaLinea* listaPlatos, char* nombreBuscado){
 		getchar();
 
 		for (i=0; i<platoEditar->cantidadIngredientes; i++){
-			printf("Ingrese ingrediente número %d: ", i+1);
+			printf("Ingrese ingrediente numero %d: ", i+1);
 			scanf("%[^\n]%*c", platoEditar->ingredientes[i]);
 		}
 
@@ -277,7 +277,7 @@ void mostrarPlato(NodoLinea* plato){
 	printf("\n");
 
 	printf("Nombre del plato: %s\n", plato->comida);
-	printf("Cantidad de calorías: %d\n", plato->calorias);
+	printf("Cantidad de calorias: %d\n", plato->calorias);
 	printf("Ingredientes (%d): ", plato->cantidadIngredientes);
 
 	for (i=0; i<plato->cantidadIngredientes; i++)
@@ -321,7 +321,7 @@ void buscarLimiteCalorias(ListaEnlazadaLinea* listaPlatos, int calorias){
 	if (encontrados)
 		printf("\nResultados encontrados: %d\n\n", encontrados);
 	else
-		printf("\nNo se han encontrado resultados para un limite de %d calorías.\n\n", calorias);
+		printf("\nNo se han encontrado resultados para un limite de %d calorias.\n\n", calorias);
 }
 
 void buscarPlatoPorIngrediente(ListaEnlazadaLinea* listaPlatos, char* ingrediente){
@@ -358,21 +358,21 @@ void ejecutar(){
 	nombreArchivo = (char*)calloc(64, sizeof(char));
 	opcion = -1;
 
-	printf("¡Bienvenido al administrador del restaurant!\n\n");
+	printf("Bienvenido al administrador del restaurant!\n\n");
 
 	while (opcion != 9){
 
-		printf("¿Qué desea?:\n");
+		printf("Que desea?:\n");
 		printf("(0) Cargar los platos mediante archivo.\n");
 		printf("(1) Ver los platos de comida.\n");
 		printf("(2) Agregar un plato de comida.\n");
 		printf("(3) Buscar un plato de comida por nombre.\n");
 		printf("(4) Editar un plato de comida.\n");
 		printf("(5) Eliminar un plato de comida.\n");
-		printf("(6) Buscar plato de comidas con límites de calorías.\n");
-		printf("(7) Buscar plato de comidas con ingrediente específico.\n");
+		printf("(6) Buscar plato de comidas con limites de calorias.\n");
+		printf("(7) Buscar plato de comidas con ingrediente especifico.\n");
 		printf("(9) Cerrar programa y guardar los datos.\n\n");
-		printf("Seleccione una opción y presione [ENTER]: ");
+		printf("Seleccione una opcion y presione [ENTER]: ");
 		scanf("%d", &opcion);
 		getchar();
 
@@ -380,7 +380,7 @@ void ejecutar(){
 		switch(opcion){
 			case 0:
 				limpiarPantalla();
-				printf("Ingrese el nombre del archivo con los platos (debe incluir la extensión): ");
+				printf("Ingrese el nombre del archivo con los platos (debe incluir la extension): ");
 				scanf("%s", nombreArchivo);
 
 				archivo = leerArchivo(nombreArchivo);
@@ -397,7 +397,7 @@ void ejecutar(){
 				if (archivo)
 					imprimirPlatosOrden(archivo);
 				else
-					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+					printf("\nDebe cargar un archivo antes de esta operacion!\n\n");
 
 				break;
 
@@ -406,7 +406,7 @@ void ejecutar(){
 				if (archivo)
 					agregarPlato(archivo);
 				else
-					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+					printf("\nDebe cargar un archivo antes de esta operacion!\n\n");
 
 				break;
 
@@ -427,7 +427,7 @@ void ejecutar(){
 						mostrarPlato(plato);
 
 				} else {
-					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+					printf("\nDebe cargar un archivo antes de esta operacion!\n\n");
 				}
 				break;
 
@@ -444,7 +444,7 @@ void ejecutar(){
 					free(platoAEditar);
 
 				} else {
-					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+					printf("\nDebe cargar un archivo antes de esta operacion!\n\n");
 				}
 
 				break;
@@ -462,7 +462,7 @@ void ejecutar(){
 					free(platoABorrar);
 
 				} else {
-					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+					printf("\nDebe cargar un archivo antes de esta operacion!\n\n");
 				}
 
 				break;
@@ -472,14 +472,14 @@ void ejecutar(){
 				if (archivo){
 					int calorias;
 
-					printf("Ingrese el límite de calorías a buscar: ");
+					printf("Ingrese el limite de calorias a buscar: ");
 					scanf("%d", &calorias);
 					getchar();
 
 					buscarLimiteCalorias(archivo, calorias);
 
 				} else {
-					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+					printf("\nDebe cargar un archivo antes de esta operacion!\n\n");
 				}
 
 				break;
@@ -497,13 +497,13 @@ void ejecutar(){
 					free(ingrediente);
 
 				} else {
-					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+					printf("\nDebe cargar un archivo antes de esta operacion!\n\n");
 				}
 				break;
 
 			case 9:
 				limpiarPantalla();
-				printf("¡Gracias por usar el administrador! Nos vemos pronto.\n");
+				printf("Gracias por usar el administrador! Nos vemos pronto.\n");
 				
 				if(strlen(nombreArchivo) != 0){
 					guardarCambios(archivo, nombreArchivo);
@@ -518,7 +518,7 @@ void ejecutar(){
 
 			default:
 				limpiarPantalla();
-				printf("[¡ERROR!] La opción ingresada no está disponible, vuelva a intentarlo\n\n");
+				printf("[ERROR!] La opcion ingresada no esta disponible, vuelva a intentarlo\n\n");
 				opcion = -1;
 				break;
 		}
