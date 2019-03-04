@@ -1,5 +1,3 @@
 plato de comida 1-200-3-ingrediente 1-ingrediente 2-ingrediente 3
 plato de comida 2-500-4-ingrediente 1-ingrediente 2-ingrediente 3-ingrediente 4
-
-
-
+plato de comida 3-1000-6-ingrediente 1-ingrediente 2-ingrediente 3-ingrediente 4-ingrediente 5-ingrediente 6

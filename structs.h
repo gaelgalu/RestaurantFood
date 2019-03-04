@@ -10,6 +10,7 @@ typedef struct nodoLinea{
 	int calorias;
 	int cantidadIngredientes;
 	char** ingredientes;
+	struct nodoLinea* anterior;
 	struct nodoLinea* siguiente;
 }NodoLinea;
 
