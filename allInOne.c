@@ -17,6 +17,8 @@ typedef struct listaEnlazadaLinea{
 	int largo;
 }ListaEnlazadaLinea;
 
+int i;
+
 void agregarNodo(ListaEnlazadaLinea* platos, NodoLinea* plato){
 	if (platos->largo == 0){
 		platos->primero = plato;
@@ -61,10 +63,11 @@ void agregarLinea(ListaEnlazadaLinea* lineas, char* linea){
 
 	nodo->ingredientes = (char**)calloc(nodo->cantidadIngredientes, sizeof(char*));
 
-	for (int i=0; i<cantidadIngredientes; i++)
+	int i;
+	for (i=0; i<cantidadIngredientes; i++)
 		nodo->ingredientes[i] = (char*)calloc(64, sizeof(char));
 
-	for (int i=0; i<cantidadIngredientes; i++){
+	for (i=0; i<cantidadIngredientes; i++){
 		token = strtok(NULL, "-");
 		strcpy(nodo->ingredientes[i], token);
 	}
@@ -111,7 +114,7 @@ void imprimirPlatosOrden(ListaEnlazadaLinea* listaPlatos){
 		printf("Calorías: %d\n", aux->calorias);
 		printf("Ingredientes (%d): ", aux->cantidadIngredientes);
 
-		for (int i=0; i<aux->cantidadIngredientes; i++) 
+		for (i=0; i<aux->cantidadIngredientes; i++) 
 			printf("- %s ", aux->ingredientes[i]);
 
 		printf("\n");
@@ -135,7 +138,7 @@ void imprimirPlatosAlReves(ListaEnlazadaLinea* listaPlatos){
 		printf("Calorías: %d\n", aux->calorias);
 		printf("Ingredientes (%d): ", aux->cantidadIngredientes);
 
-		for (int i=0; i<aux->cantidadIngredientes; i++) 
+		for (i=0; i<aux->cantidadIngredientes; i++) 
 			printf("- %s ", aux->ingredientes[i]);
 
 		printf("\n");
@@ -167,7 +170,7 @@ void agregarPlato(ListaEnlazadaLinea* listaPlatos){
 	nuevoPlato->cantidadIngredientes = cantidadIngredientes;
 
 	nuevoPlato->ingredientes = (char**)calloc(cantidadIngredientes, sizeof(char*));
-	for (int i=0; i<cantidadIngredientes; i++) {
+	for (i=0; i<cantidadIngredientes; i++) {
 		nuevoPlato->ingredientes[i] = (char*)calloc(64, sizeof(char));
 		printf("Ingrese ingrediente número %d: ", i+1);
 		scanf("%[^\n]%*c", strcat(nuevoPlato->ingredientes[i], "\n"));
@@ -200,7 +203,7 @@ void eliminarPlato(ListaEnlazadaLinea* listaPlatos, char* nombreBuscado){
 		platoEliminar->anterior->siguiente = platoEliminar->siguiente;
 		free(platoEliminar->comida);
 
-		for (int i=0; i<platoEliminar->cantidadIngredientes; i++) 
+		for (i=0; i<platoEliminar->cantidadIngredientes; i++) 
 			free(platoEliminar->ingredientes[i]);
 
 		free(platoEliminar->ingredientes);
@@ -228,7 +231,7 @@ void editarPlato(ListaEnlazadaLinea* listaPlatos, char* nombreBuscado){
 		scanf("%d", &platoEditar->cantidadIngredientes);
 		getchar();
 
-		for (int i=0; i<platoEditar->cantidadIngredientes; i++){
+		for (i=0; i<platoEditar->cantidadIngredientes; i++){
 			printf("Ingrese ingrediente número %d: ", i+1);
 			scanf("%[^\n]%*c", platoEditar->ingredientes[i]);
 		}
@@ -255,7 +258,7 @@ void guardarCambios(ListaEnlazadaLinea* listaPlatos, char* nombreArchivo){
 
 		fprintf(f, "%s-%d-%d", aux->comida, aux->calorias, aux->cantidadIngredientes);
 
-		for (int i=0; i<aux->cantidadIngredientes; i++) 
+		for (i=0; i<aux->cantidadIngredientes; i++) 
 			fprintf(f, "-%s", aux->ingredientes[i]);
 
 		aux = aux->siguiente;
@@ -277,7 +280,7 @@ void mostrarPlato(NodoLinea* plato){
 	printf("Cantidad de calorías: %d\n", plato->calorias);
 	printf("Ingredientes (%d): ", plato->cantidadIngredientes);
 
-	for (int i=0; i<plato->cantidadIngredientes; i++)
+	for (i=0; i<plato->cantidadIngredientes; i++)
 		printf("- %s ", plato->ingredientes[i]);
 
 	printf("\n");
@@ -290,7 +293,7 @@ void liberarEspacio(NodoLinea* nodo){
 		aux = nodo;
 		free(aux->comida);
 
-		for (int i=0; i<aux->cantidadIngredientes; i++)
+		for (i=0; i<aux->cantidadIngredientes; i++)
 			free(aux->ingredientes[i]);
 
 		free(aux->ingredientes);
