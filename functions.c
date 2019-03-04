@@ -1,5 +1,15 @@
 #include "functions.h"
 
+void limpiarPantalla(){
+	#ifdef _WIN32
+		system("cls");
+	#elif defined(unix) || defined(__unix__) || defined(__unix) || (defined(__APPLE__) && defined(__MACH__))
+		system("clear");
+	#else
+		#error "Sistema Operativo no soportado."
+	#endif
+}
+
 void agregarNodo(ListaEnlazadaLinea* platos, NodoLinea* plato){
 	if (platos->largo == 0){
 		platos->primero = plato;
@@ -273,6 +283,27 @@ void liberarEspacio(NodoLinea* nodo){
 	}
 }
 
+void buscarLimiteCalorias(ListaEnlazadaLinea* listaPlatos, int calorias){
+	NodoLinea* aux;
+	int encontrados;
+	encontrados = 0;
+
+	aux = listaPlatos->primero;
+
+	while (aux){
+		if (aux->calorias <= calorias){
+			mostrarPlato(aux);
+			encontrados++;
+		}
+		aux = aux->siguiente;
+	}
+
+	if (encontrados)
+		printf("\nResultados encontrados: %d\n\n", encontrados);
+	else
+		printf("\nNo se han encontrado resultados para un limite de %d calorías.\n\n", calorias);
+}
+
 void ejecutar(){
 	ListaEnlazadaLinea* archivo;
 	int opcion;
@@ -301,7 +332,8 @@ void ejecutar(){
 
 		switch(opcion){
 			case 0:
-				printf("Ingrese en nombre del archivo con los platos (debe incluir la extensión): ");
+				limpiarPantalla();
+				printf("Ingrese el nombre del archivo con los platos (debe incluir la extensión): ");
 				scanf("%s", nombreArchivo);
 
 				archivo = leerArchivo(nombreArchivo);
@@ -314,6 +346,7 @@ void ejecutar(){
 				break;
 
 			case 1:
+				limpiarPantalla();
 				if (archivo)
 					imprimirPlatosOrden(archivo);
 				else
@@ -322,6 +355,7 @@ void ejecutar(){
 				break;
 
 			case 2:
+				limpiarPantalla();
 				if (archivo)
 					agregarPlato(archivo);
 				else
@@ -330,6 +364,7 @@ void ejecutar(){
 				break;
 
 			case 3:
+				limpiarPantalla();
 				if (archivo){
 					char* nombreBuscado;
 					nombreBuscado = (char*)calloc(64, sizeof(char));
@@ -350,6 +385,7 @@ void ejecutar(){
 				break;
 
 			case 4:
+				limpiarPantalla();
 				if (archivo){
 					char* platoAEditar;
 					platoAEditar = (char*)calloc(64, sizeof(char));
@@ -367,6 +403,7 @@ void ejecutar(){
 				break;
 
 			case 5:
+				limpiarPantalla();
 				if (archivo){
 					char* platoABorrar;
 					platoABorrar = (char*)calloc(64, sizeof(char));
@@ -384,14 +421,28 @@ void ejecutar(){
 				break;
 
 			case 6:
-				printf("\nAquí se buscarán platos de acuerdo a un límite de calorías\n\n");
+				limpiarPantalla();
+				if (archivo){
+					int calorias;
+
+					printf("Ingrese el límite de calorías a buscar: ");
+					scanf("%d", &calorias);
+					getchar();
+
+					buscarLimiteCalorias(archivo, calorias);
+				} else {
+					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+				}
+
 				break;
 
 			case 7:
+				limpiarPantalla();
 				printf("\nAquí se buscarán platos de acuerdo a un ingrediente específico\n\n");
 				break;
 
 			case 9:
+				limpiarPantalla();
 				printf("¡Gracias por usar el administrador! Nos vemos pronto.\n");
 				
 				if(strlen(nombreArchivo) != 0){
@@ -406,6 +457,7 @@ void ejecutar(){
 				break;
 
 			default:
+				limpiarPantalla();
 				printf("[¡ERROR!] La opción ingresada no está disponible, vuelva a intentarlo\n\n");
 				opcion = -1;
 				break;
