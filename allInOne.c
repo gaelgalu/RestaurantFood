@@ -324,6 +324,33 @@ void buscarLimiteCalorias(ListaEnlazadaLinea* listaPlatos, int calorias){
 		printf("\nNo se han encontrado resultados para un limite de %d calorías.\n\n", calorias);
 }
 
+void buscarPlatoPorIngrediente(ListaEnlazadaLinea* listaPlatos, char* ingrediente){
+	NodoLinea* aux;
+	int encontrados;
+	encontrados = 0;
+
+	aux = listaPlatos->primero;
+
+	while (aux){
+		for (i=0; i<aux->cantidadIngredientes; i++){
+			char* token;
+			token = strtok(aux->ingredientes[i], "\n");
+
+			if (strcmp(ingrediente, token) == 0){
+				mostrarPlato(aux);
+				encontrados++;
+			}
+		}
+
+		aux = aux->siguiente;
+	}
+
+	if (encontrados)
+		printf("\nResultados encontrados: %d\n\n", encontrados);
+	else
+		printf("\nNo se han encontrado resultados con el ingrediente %s.\n\n", ingrediente);
+}
+
 void ejecutar(){
 	ListaEnlazadaLinea* archivo;
 	int opcion;
@@ -450,6 +477,7 @@ void ejecutar(){
 					getchar();
 
 					buscarLimiteCalorias(archivo, calorias);
+
 				} else {
 					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
 				}
@@ -458,7 +486,19 @@ void ejecutar(){
 
 			case 7:
 				limpiarPantalla();
-				printf("\nAquí se buscarán platos de acuerdo a un ingrediente específico\n\n");
+				if (archivo){
+					char* ingrediente;
+					ingrediente = (char*)calloc(64, sizeof(char));
+
+					printf("Ingrese el ingrediente a buscar: ");
+					scanf("%[^\n]%*c", ingrediente);
+
+					buscarPlatoPorIngrediente(archivo, ingrediente);
+					free(ingrediente);
+
+				} else {
+					printf("\n¡Debe cargar un archivo antes de esta operación!\n\n");
+				}
 				break;
 
 			case 9:
